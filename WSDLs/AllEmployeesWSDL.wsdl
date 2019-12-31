@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd4" xmlns:tns="http://xmlns.example.com/1577801108506" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd3" targetNamespace="http://xmlns.example.com/1577801108506">
+    <import namespace="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd4" location="../Schemas/AllEmployeesInfoRequest.xsd"/>
+    <import namespace="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd3" location="../Schemas/AllEmployeesResponse.xsd"/>
+    <message name="AllEmployeesInput">
+        <part name="Request" element="ns:AllEmployees"/>
+    </message>
+    <message name="AllEmployeesOutput">
+        <part name="Response" element="ns2:Employees"/>
+    </message>
+    <portType name="AllEmployeesMgr">
+        <operation name="AllEmployees">
+            <input message="tns:AllEmployeesInput"/>
+            <output message="tns:AllEmployeesOutput"/>
+        </operation>
+    </portType>
+</definitions>

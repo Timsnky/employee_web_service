@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://xmlns.example.com/1577801108506" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd3">
+    <wsdl:import namespace="http://xmlns.example.com/1577801108506" location="/WSDLs/AllEmployeesWSDL.wsdl"/>
+    <pd:name>Processes/AllEmployees.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx:AllEmployeesInput"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>159</pd:startY>
+    <pd:returnBindings>
+        <pfx:AllEmployeesOutput>
+            <Response>
+                <ns:Employees>
+                    <xsl:for-each select="$AllEmployeesQuery/resultSet/Record">
+                        <ns:EmployeeDetails>
+                            <ns:EmployeeCode>
+                                <xsl:value-of select="EMP_CODE"/>
+                            </ns:EmployeeCode>
+                            <ns:EmployeeName>
+                                <xsl:value-of select="EMP_NAME"/>
+                            </ns:EmployeeName>
+                            <ns:EmployeeDesignation>
+                                <xsl:value-of select="EMP_DESIGNATION"/>
+                            </ns:EmployeeDesignation>
+                            <ns:EmployeeAge>
+                                <xsl:value-of select="EMP_AGE"/>
+                            </ns:EmployeeAge>
+                        </ns:EmployeeDetails>
+                    </xsl:for-each>
+                </ns:Employees>
+            </Response>
+        </pfx:AllEmployeesOutput>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx:AllEmployeesOutput"/>
+    <pd:endX>503</pd:endX>
+    <pd:endY>159</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1577801551217</pd:targetNamespace>
+    <pd:activity name="AllEmployeesQuery">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>294</pd:x>
+        <pd:y>159</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Connections/JDBCLocalConnection.sharedjdbc</jdbcSharedConfig>
+            <statement>SELECT * FROM EMPLOYEE</statement>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>EMP_CODE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>EMP_NAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>EMP_DESIGNATION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>EMP_AGE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>AllEmployeesQuery</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AllEmployeesQuery</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

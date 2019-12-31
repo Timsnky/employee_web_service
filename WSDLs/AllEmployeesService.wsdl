@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.example.com/1577803592130" xmlns:ns0="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd4" xmlns:ns1="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd3" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://xmlns.example.com/1577803592130">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="EmployeeAge" type="xs:string"/>
+            <xs:element name="EmployeeCode" type="xs:string"/>
+            <xs:element name="EmployeeDesignation" type="xs:string"/>
+            <xs:element name="EmployeeDetails">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns1:EmployeeCode"/>
+                        <xs:element ref="ns1:EmployeeName"/>
+                        <xs:element ref="ns1:EmployeeDesignation"/>
+                        <xs:element ref="ns1:EmployeeAge"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="EmployeeName" type="xs:string"/>
+            <xs:element name="Employees">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns1:EmployeeDetails" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/employee_web_service/Schemas/Schema.xsd4" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="AllEmployees">
+                <xs:complexType/>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="AllEmployeesWSDL-service16">
+        <wsdl:port name="AllEmployeesMgrEndpoint16" binding="tns:AllEmployeesMgrEndpoint16Binding">
+            <soap:address location="http://employee.appp:80/employees"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="AllEmployeesMgr">
+        <wsdl:operation name="AllEmployees">
+            <wsdl:input message="tns:AllEmployeesInput"/>
+            <wsdl:output message="tns:AllEmployeesOutput"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="AllEmployeesMgrEndpoint16Binding" type="tns:AllEmployeesMgr">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="AllEmployees">
+            <soap:operation style="document" soapAction="/Services/AllEmployeesWSDL-service16.serviceagent/AllEmployeesMgrEndpoint16/AllEmployees"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Request"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Response"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="AllEmployeesInput">
+        <wsdl:part name="Request" element="ns0:AllEmployees"/>
+    </wsdl:message>
+    <wsdl:message name="AllEmployeesOutput">
+        <wsdl:part name="Response" element="ns1:Employees"/>
+    </wsdl:message>
+</wsdl:definitions>
